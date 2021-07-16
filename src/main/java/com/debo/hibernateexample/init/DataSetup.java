@@ -42,6 +42,7 @@ public class DataSetup implements CommandLineRunner {
         for(Laptop l: student1.getLaptops()) {
             System.out.println(l);
         }
+        System.out.println("The student object: "+student1);
 
 
 

@@ -114,3 +114,24 @@ only the Student attributes will be fetched and any other foreign key attributes
   saved. This is detached state. An object can move from detached to persisted state using update/merge methods.
 * **Removed** : Deleted from database using remove()
 * **Garbage Collected** : This is the last state of a Java object even without Hibernate
+
+Hibernate handles persisting any changes to objects in the session when the session is flushed. update can fail if an 
+instance of the object is already in the session. Merge should be used in that case. It merges the changes of the 
+detached object with an object in the session, if it exists.
+
+Update: if you are sure that the session does not contains an already persistent instance with the same identifier,then 
+use update to save the data in hibernate.
+
+Merge: if you want to save your modifications at any time with out knowing about the state of an session, then use 
+merge() in hibernate.
+
+When the entity instance is in the persistent state, all changes that you make to the mapped fields of this instance 
+will be applied to the corresponding database records and fields upon flushing the Session. The persistent instance 
+can be thought of as “online”, whereas the detached instance has gone “offline” and is not monitored for changes.
+
+This means that when you change fields of a persistent object, you don’t have to call save, update or any of those 
+methods to get these changes to the database: all you need is to commit the transaction, or flush or close the session, 
+when you’re done with it. It is important to understand that all of the methods (persist, save, update, merge, 
+saveOrUpdate) do not immediately result in the corresponding SQL UPDATE or INSERT statements. The actual saving of data
+to the database occurs on committing the transaction or flushing the Session.
+
